@@ -102,3 +102,17 @@
 - [x] Tornar página inicial acessível sem login
 - [x] Adicionar nome completo "International Coalition of Law Enforcement Motorcycle Clubs" em destaque dourado
 - [x] Garantir que apenas áreas de perfil/admin exijam autenticação
+
+## Correção de Redirecionamento de Autenticação
+- [ ] Investigar causa do redirecionamento forçado para login na página inicial
+- [ ] Remover verificação de autenticação obrigatória da rota "/"
+- [ ] Garantir que visitantes não autenticados possam acessar a home
+- [ ] Testar acesso público no domínio de produção
+
+## Bandeiras e Badges dos Moto Clubes
+- [x] Copiar imagens de bandeiras e badges para o projeto
+- [x] Implementar CSS Sprites para proteção de imagens
+- [x] Adicionar bandeiras dos países abaixo do botão Login
+- [x] Adicionar seção com badges dos moto clubes no final da página
+- [x] Remover card "Join the Brotherhood" (não aceitando novos clubes)
+- [x] Testar proteção contra download de imagens completas

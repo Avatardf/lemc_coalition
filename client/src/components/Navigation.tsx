@@ -62,10 +62,10 @@ export function Navigation() {
               const Icon = link.icon;
               return (
                 <Link key={link.href} href={link.href}>
-                  <a className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+                  <span className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors cursor-pointer">
                     <Icon className="h-4 w-4" />
                     {link.label}
-                  </a>
+                  </span>
                 </Link>
               );
             })}

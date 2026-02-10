@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '@/_core/hooks/useAuth';
+import '../components/ProtectedSprite.css';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { getLoginUrl } from '@/const';
@@ -109,6 +110,38 @@ export default function Home() {
                 </Button>
               )}
             </div>
+            
+            {/* Country Flags */}
+            <div className="mt-12 flex flex-wrap justify-center gap-4 items-center">
+              {[
+                { code: 'BRA', name: 'Brazil', x: 0 },
+                { code: 'CHL', name: 'Chile', x: -160 },
+                { code: 'DEU', name: 'Germany', x: -320 },
+                { code: 'BEL', name: 'Belgium', x: -480 },
+                { code: 'USA', name: 'United States', x: -640 },
+                { code: 'ITA', name: 'Italy', x: -800 },
+                { code: 'SVK', name: 'Slovakia', x: -960 },
+                { code: 'PRI', name: 'Puerto Rico', x: -1120 },
+                { code: 'ARG', name: 'Argentina', x: -1280 },
+                { code: 'PRT', name: 'Portugal', x: -1440 },
+              ].map((country) => (
+                <div 
+                  key={country.code}
+                  className="flag-sprite"
+                  style={{
+                    width: '160px',
+                    height: '120px',
+                    backgroundImage: 'url(/flags-sprite.png)',
+                    backgroundPosition: `${country.x}px 0`,
+                    backgroundSize: '1600px 120px',
+                    backgroundRepeat: 'no-repeat',
+                    filter: 'drop-shadow(0 4px 6px rgba(0,0,0,0.3))',
+                  }}
+                  title={country.name}
+                  aria-label={country.name}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -205,28 +238,55 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA Section */}
+      {/* Moto Clubs Badges Section */}
       <section className="py-20 bg-gradient-to-br from-primary/10 via-secondary/10 to-accent/10">
         <div className="container">
-          <Card className="max-w-3xl mx-auto border-2 shadow-2xl">
-            <CardContent className="p-12 text-center">
-              <Bike className="h-16 w-16 mx-auto mb-6 text-primary" />
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                Join the Brotherhood
-              </h2>
-              <p className="text-lg text-muted-foreground mb-8">
-                Be part of a global community of law enforcement riders united by passion, purpose, and the open road.
-              </p>
-              {!isAuthenticated && (
-                <Button size="lg" className="text-lg mx-auto" asChild>
-                  <a href={getLoginUrl()} className="flex items-center gap-2">
-                    {t('nav.login')}
-                    <ArrowRight className="h-5 w-5" />
-                  </a>
-                </Button>
-              )}
-            </CardContent>
-          </Card>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-primary">
+              Member Motorcycle Clubs
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              International coalition of law enforcement motorcycle clubs
+            </p>
+          </div>
+          
+          {/* Badges Sprite */}
+          <div className="flex flex-wrap justify-center gap-6 items-center max-w-6xl mx-auto">
+            {[
+              { name: 'Blue Knights', x: 0 },
+              { name: 'Law Enforcement MC International', x: -160 },
+              { name: 'Lord\'s Guardians', x: -320 },
+              { name: 'Despatch Riders', x: -480 },
+              { name: 'LEMC Coalition', x: -640 },
+              { name: 'Legion Germany', x: -800 },
+              { name: 'Fraternidade Brasil', x: -960 },
+              { name: 'Blocks & Bikes', x: -1120 },
+              { name: 'Ejecutores', x: -1280 },
+            ].map((club, index) => (
+              <div 
+                key={index}
+                className="badge-sprite"
+                style={{
+                  width: '160px',
+                  height: '160px',
+                  backgroundImage: 'url(/badges-sprite.png)',
+                  backgroundPosition: `${club.x}px 0`,
+                  backgroundSize: '1440px 160px',
+                  backgroundRepeat: 'no-repeat',
+                  filter: 'drop-shadow(0 8px 16px rgba(0,0,0,0.4))',
+                  transition: 'transform 0.3s ease',
+                }}
+                title={club.name}
+                aria-label={club.name}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'scale(1.1)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'scale(1)';
+                }}
+              />
+            ))}
+          </div>
         </div>
       </section>
     </div>

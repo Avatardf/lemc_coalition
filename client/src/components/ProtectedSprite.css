@@ -1,0 +1,36 @@
+/* CSS Sprites Protection */
+.flag-sprite,
+.badge-sprite {
+  display: inline-block;
+  user-select: none;
+  -webkit-user-drag: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  pointer-events: none;
+  position: relative;
+}
+
+.flag-sprite::before,
+.badge-sprite::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: transparent;
+  z-index: 1;
+}
+
+/* Disable right-click context menu on sprites */
+.flag-sprite,
+.badge-sprite {
+  -webkit-touch-callout: none;
+}
+
+/* Additional protection layer */
+.sprite-container {
+  position: relative;
+  overflow: hidden;
+}
