@@ -57,8 +57,16 @@ export default function Home() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-primary/10 via-secondary/10 to-accent/10 py-20 md:py-32">
-        <div className="container">
+      <section className="relative py-20 md:py-32 overflow-hidden">
+        {/* Background Image with Overlay */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: 'url(/road-background.jpg)' }}
+        />
+        <div className="absolute inset-0 bg-black/75" />
+        
+        {/* Content */}
+        <div className="relative z-10 container">
           <div className="max-w-4xl mx-auto text-center">
             <div className="mb-8 flex justify-center">
               <img 

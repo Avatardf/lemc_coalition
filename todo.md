@@ -90,3 +90,10 @@
 - [x] Ajustar cores do tema baseado na logo (dourado, azul marinho, vermelho)
 - [x] Atualizar favicon com a logo
 - [x] Verificar consistência visual em todas as páginas
+
+## Correções de Design e Contraste
+- [x] Trocar fonte para Calibri Bold
+- [x] Alterar cor do texto principal para dourado
+- [x] Adicionar imagem de fundo da estrada
+- [x] Aplicar overlay preto com 75% de transparência sobre a imagem
+- [x] Garantir legibilidade em todos os textos
