@@ -124,3 +124,12 @@
 - [x] Ajustar tamanho e alinhamento dos badges conforme referência
 - [x] Garantir que imagens não fiquem recortadas
 - [x] Testar exibição em diferentes resoluções
+
+## Editor de Imagem com Recorte (Crop)
+- [x] Instalar biblioteca react-image-crop ou react-easy-crop
+- [x] Criar componente ImageCropDialog reutilizável
+- [x] Implementar crop na foto de perfil do membro
+- [x] Implementar crop nas fotos das motos na garagem
+- [x] Adicionar preview da imagem recortada antes do upload
+- [x] Garantir que apenas a área recortada seja enviada ao servidor
+- [x] Testar crop em diferentes tamanhos e formatos de imagem

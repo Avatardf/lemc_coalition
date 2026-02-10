@@ -11,6 +11,7 @@ import { toast } from 'sonner';
 import { useState, useRef } from 'react';
 import { Upload, Loader2 } from 'lucide-react';
 import { getLoginUrl } from '@/const';
+import { ImageCropDialog } from '@/components/ImageCropDialog';
 
 export default function Profile() {
   const { t } = useTranslation();
@@ -25,6 +26,8 @@ export default function Profile() {
   });
   
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [cropDialogOpen, setCropDialogOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<string>('');
   
   const { data: motoClubs } = trpc.motoClubs.list.useQuery();
   
@@ -63,15 +66,24 @@ export default function Profile() {
     }
 
     const reader = new FileReader();
-    reader.onload = async () => {
+    reader.onload = () => {
+      setSelectedImage(reader.result as string);
+      setCropDialogOpen(true);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleCropComplete = async (croppedBlob: Blob) => {
+    const reader = new FileReader();
+    reader.onload = () => {
       const base64 = (reader.result as string).split(',')[1];
       uploadPhoto.mutate({
         fileData: base64,
-        fileName: file.name,
-        mimeType: file.type,
+        fileName: 'profile-photo.jpg',
+        mimeType: 'image/jpeg',
       });
     };
-    reader.readAsDataURL(file);
+    reader.readAsDataURL(croppedBlob);
   };
 
   if (loading) {
@@ -230,6 +242,16 @@ export default function Profile() {
           </Card>
         </div>
       </div>
+      
+      {/* Image Crop Dialog */}
+      <ImageCropDialog
+        open={cropDialogOpen}
+        imageUrl={selectedImage}
+        onClose={() => setCropDialogOpen(false)}
+        onCropComplete={handleCropComplete}
+        aspectRatio={1}
+        cropShape="round"
+      />
     </div>
   );
 }

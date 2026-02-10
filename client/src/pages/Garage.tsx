@@ -10,6 +10,7 @@ import { toast } from 'sonner';
 import { useState, useRef } from 'react';
 import { Plus, Loader2, Trash2, Upload, Bike } from 'lucide-react';
 import { getLoginUrl } from '@/const';
+import { ImageCropDialog } from '@/components/ImageCropDialog';
 
 export default function Garage() {
   const { t } = useTranslation();
@@ -24,6 +25,9 @@ export default function Garage() {
   });
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [uploadingPhotoFor, setUploadingPhotoFor] = useState<number | null>(null);
+  const [cropDialogOpen, setCropDialogOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<string>('');
+  const [currentMotorcycleId, setCurrentMotorcycleId] = useState<number | null>(null);
   
   const { data: motorcycles, isLoading } = trpc.garage.list.useQuery(undefined, {
     enabled: isAuthenticated,
@@ -77,18 +81,30 @@ export default function Garage() {
       return;
     }
 
-    setUploadingPhotoFor(motorcycleId);
+    setCurrentMotorcycleId(motorcycleId);
     const reader = new FileReader();
-    reader.onload = async () => {
-      const base64 = (reader.result as string).split(',')[1];
-      uploadPhoto.mutate({
-        motorcycleId,
-        fileData: base64,
-        fileName: file.name,
-        mimeType: file.type,
-      });
+    reader.onload = () => {
+      setSelectedImage(reader.result as string);
+      setCropDialogOpen(true);
     };
     reader.readAsDataURL(file);
+  };
+
+  const handleCropComplete = async (croppedBlob: Blob) => {
+    if (!currentMotorcycleId) return;
+    
+    setUploadingPhotoFor(currentMotorcycleId);
+    const reader = new FileReader();
+    reader.onload = () => {
+      const base64 = (reader.result as string).split(',')[1];
+      uploadPhoto.mutate({
+        motorcycleId: currentMotorcycleId,
+        fileData: base64,
+        fileName: 'motorcycle-photo.jpg',
+        mimeType: 'image/jpeg',
+      });
+    };
+    reader.readAsDataURL(croppedBlob);
   };
 
   if (loading || isLoading) {
@@ -264,6 +280,16 @@ export default function Garage() {
           </div>
         )}
       </div>
+      
+      {/* Image Crop Dialog */}
+      <ImageCropDialog
+        open={cropDialogOpen}
+        imageUrl={selectedImage}
+        onClose={() => setCropDialogOpen(false)}
+        onCropComplete={handleCropComplete}
+        aspectRatio={16 / 9}
+        cropShape="rect"
+      />
     </div>
   );
 }
