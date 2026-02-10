@@ -97,3 +97,8 @@
 - [x] Adicionar imagem de fundo da estrada
 - [x] Aplicar overlay preto com 75% de transparência sobre a imagem
 - [x] Garantir legibilidade em todos os textos
+
+## Melhorias de Acesso e Conteúdo
+- [x] Tornar página inicial acessível sem login
+- [x] Adicionar nome completo "International Coalition of Law Enforcement Motorcycle Clubs" em destaque dourado
+- [x] Garantir que apenas áreas de perfil/admin exijam autenticação

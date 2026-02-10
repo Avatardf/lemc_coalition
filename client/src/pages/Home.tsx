@@ -75,6 +75,9 @@ export default function Home() {
                 className="w-32 h-32 object-contain drop-shadow-2xl"
               />
             </div>
+            <h2 className="text-2xl md:text-3xl font-bold mb-4 text-primary">
+              International Coalition of Law Enforcement Motorcycle Clubs
+            </h2>
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
               {t('home.title')}
             </h1>
