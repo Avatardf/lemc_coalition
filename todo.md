@@ -83,3 +83,10 @@
 - [ ] Create comprehensive checkpoint
 - [ ] Document all features and usage instructions
 - [ ] Prepare deployment notes
+
+## Logo e Identidade Visual
+- [x] Copiar logo oficial para o diretório public
+- [x] Substituir logo placeholder pela logo oficial
+- [x] Ajustar cores do tema baseado na logo (dourado, azul marinho, vermelho)
+- [x] Atualizar favicon com a logo
+- [x] Verificar consistência visual em todas as páginas

@@ -45,12 +45,14 @@ export function Navigation() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/">
-            <a className="flex items-center gap-3 hover:opacity-80 transition-opacity">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary via-secondary to-accent flex items-center justify-center">
-                <span className="text-white font-bold text-lg">LE</span>
-              </div>
+            <div className="flex items-center gap-3 hover:opacity-80 transition-opacity cursor-pointer">
+              <img 
+                src="/lemc-logo.png" 
+                alt="LEMC Coalition" 
+                className="w-12 h-12 object-contain"
+              />
               <span className="hidden sm:inline font-bold text-lg text-foreground">LEMC Coalition</span>
-            </a>
+            </div>
           </Link>
 
           {/* Desktop Navigation */}

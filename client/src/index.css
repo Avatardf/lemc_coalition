@@ -1,126 +1,90 @@
 @import "tailwindcss";
-@import "tw-animate-css";
 
-@custom-variant dark (&:is(.dark *));
-
-@theme inline {
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
-  --color-sidebar: var(--sidebar);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
+@layer theme {
+  :root {
+    /* LEMC Official Colors Light Theme */
+    /* Gold: #D4AF37, Navy Blue: #1A2B4A, Red: #C8102E, White: #FFFFFF */
+    --primary: oklch(0.72 0.12 75);
+    --primary-foreground: oklch(0.98 0.01 75);
+    --sidebar-primary: oklch(0.72 0.12 75);
+    --sidebar-primary-foreground: oklch(0.15 0.02 240);
+    --background: oklch(0.985 0 0);
+    --foreground: oklch(0.15 0.02 240);
+    --card: oklch(0.98 0 0);
+    --card-foreground: oklch(0.15 0.02 240);
+    --popover: oklch(0.98 0 0);
+    --popover-foreground: oklch(0.15 0.02 240);
+    --secondary: oklch(0.25 0.08 240);
+    --secondary-foreground: oklch(0.98 0.01 75);
+    --muted: oklch(0.96 0.005 286.033);
+    --muted-foreground: oklch(0.45 0.015 240);
+    --accent: oklch(0.55 0.22 25);
+    --accent-foreground: oklch(0.98 0.01 25);
+    --destructive: oklch(0.704 0.191 22.216);
+    --destructive-foreground: oklch(0.985 0 0);
+    --border: oklch(0 0 0 / 10%);
+    --input: oklch(0 0 0 / 15%);
+    --ring: oklch(0.72 0.12 75);
+    --chart-1: oklch(0.72 0.12 75);
+    --chart-2: oklch(0.25 0.08 240);
+    --chart-3: oklch(0.55 0.22 25);
+    --chart-4: oklch(0.85 0.05 75);
+    --chart-5: oklch(0.35 0.10 240);
+    --sidebar: oklch(0.98 0 0);
+    --sidebar-foreground: oklch(0.15 0.02 240);
+    --sidebar-accent: oklch(0.96 0.005 286.033);
+    --sidebar-accent-foreground: oklch(0.15 0.02 240);
+    --sidebar-border: oklch(0.92 0.004 286.32);
+    --sidebar-ring: oklch(0.72 0.12 75);
+  }
 }
 
-:root {
-  /* LEMC Theme: Gold primary, Blue secondary, Red accent */
-  --primary: oklch(0.75 0.15 85);
-  --primary-foreground: oklch(0.15 0.01 85);
-  --sidebar-primary: oklch(0.75 0.15 85);
-  --sidebar-primary-foreground: oklch(0.15 0.01 85);
-  --chart-1: oklch(0.75 0.15 85);
-  --chart-2: oklch(0.60 0.20 250);
-  --chart-3: oklch(0.65 0.25 25);
-  --chart-4: oklch(0.55 0.15 140);
-  --chart-5: oklch(0.50 0.15 300);
-  --radius: 0.65rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.235 0.015 65);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.235 0.015 65);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.235 0.015 65);
-  --secondary: oklch(0.60 0.20 250);
-  --secondary-foreground: oklch(0.98 0.01 250);
-  --muted: oklch(0.967 0.001 286.375);
-  --muted-foreground: oklch(0.552 0.016 285.938);
-  --accent: oklch(0.65 0.25 25);
-  --accent-foreground: oklch(0.98 0.01 25);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.985 0 0);
-  --border: oklch(0.92 0.004 286.32);
-  --input: oklch(0.92 0.004 286.32);
-  --ring: oklch(0.623 0.214 259.815);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.235 0.015 65);
-  --sidebar-accent: oklch(0.967 0.001 286.375);
-  --sidebar-accent-foreground: oklch(0.141 0.005 285.823);
-  --sidebar-border: oklch(0.92 0.004 286.32);
-  --sidebar-ring: oklch(0.623 0.214 259.815);
-}
 
 .dark {
-  /* LEMC Dark Theme: Gold primary, Blue secondary, Red accent */
-  --primary: oklch(0.75 0.15 85);
-  --primary-foreground: oklch(0.15 0.01 85);
-  --sidebar-primary: oklch(0.75 0.15 85);
-  --sidebar-primary-foreground: oklch(0.15 0.01 85);
-  --background: oklch(0.141 0.005 285.823);
-  --foreground: oklch(0.85 0.005 65);
-  --card: oklch(0.21 0.006 285.885);
-  --card-foreground: oklch(0.85 0.005 65);
-  --popover: oklch(0.21 0.006 285.885);
-  --popover-foreground: oklch(0.85 0.005 65);
-  --secondary: oklch(0.60 0.20 250);
-  --secondary-foreground: oklch(0.98 0.01 250);
-  --muted: oklch(0.274 0.006 286.033);
-  --muted-foreground: oklch(0.705 0.015 286.067);
-  --accent: oklch(0.65 0.25 25);
+  /* LEMC Official Colors Dark Theme */
+  /* Gold: #D4AF37, Navy Blue: #1A2B4A, Red: #C8102E */
+  --primary: oklch(0.72 0.12 75);
+  --primary-foreground: oklch(0.15 0.02 240);
+  --sidebar-primary: oklch(0.72 0.12 75);
+  --sidebar-primary-foreground: oklch(0.15 0.02 240);
+  --background: oklch(0.12 0.015 240);
+  --foreground: oklch(0.95 0.005 75);
+  --card: oklch(0.18 0.02 240);
+  --card-foreground: oklch(0.95 0.005 75);
+  --popover: oklch(0.18 0.02 240);
+  --popover-foreground: oklch(0.95 0.005 75);
+  --secondary: oklch(0.25 0.08 240);
+  --secondary-foreground: oklch(0.98 0.01 75);
+  --muted: oklch(0.22 0.02 240);
+  --muted-foreground: oklch(0.70 0.015 75);
+  --accent: oklch(0.55 0.22 25);
   --accent-foreground: oklch(0.98 0.01 25);
-  --destructive: oklch(0.704 0.191 22.216);
+  --destructive: oklch(0.55 0.22 25);
   --destructive-foreground: oklch(0.985 0 0);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.488 0.243 264.376);
-  --chart-1: oklch(0.75 0.15 85);
-  --chart-2: oklch(0.60 0.20 250);
-  --chart-3: oklch(0.65 0.25 25);
-  --chart-4: oklch(0.55 0.15 140);
-  --chart-5: oklch(0.50 0.15 300);
-  --sidebar: oklch(0.21 0.006 285.885);
-  --sidebar-foreground: oklch(0.85 0.005 65);
-  --sidebar-accent: oklch(0.274 0.006 286.033);
-  --sidebar-accent-foreground:  oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.488 0.243 264.376);
+  --border: oklch(1 0 0 / 12%);
+  --input: oklch(1 0 0 / 18%);
+  --ring: oklch(0.72 0.12 75);
+  --chart-1: oklch(0.72 0.12 75);
+  --chart-2: oklch(0.25 0.08 240);
+  --chart-3: oklch(0.55 0.22 25);
+  --chart-4: oklch(0.85 0.05 75);
+  --chart-5: oklch(0.35 0.10 240);
+  --sidebar: oklch(0.18 0.02 240);
+  --sidebar-foreground: oklch(0.95 0.005 75);
+  --sidebar-accent: oklch(0.22 0.02 240);
+  --sidebar-accent-foreground: oklch(0.98 0.01 75);
+  --sidebar-border: oklch(1 0 0 / 12%);
+  --sidebar-ring: oklch(0.72 0.12 75);
 }
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    border-color: var(--border);
+    outline-color: oklch(from var(--ring) l c h / 50%);
   }
   body {
-    @apply bg-background text-foreground;
+    background-color: var(--background);
+    color: var(--foreground);
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   }
   h1, h2, h3, h4, h5, h6 {
@@ -132,53 +96,17 @@
   [type="button"]:not(:disabled),
   [type="submit"]:not(:disabled),
   [type="reset"]:not(:disabled),
-  a[href],
-  select:not(:disabled),
-  input[type="checkbox"]:not(:disabled),
-  input[type="radio"]:not(:disabled) {
-    @apply cursor-pointer;
+  summary {
+    cursor: pointer;
+  }
+  .flex {
+    min-width: 0;
+    min-height: 0;
   }
 }
 
-@layer components {
-  /**
-   * Custom container utility that centers content and adds responsive padding.
-   *
-   * This overrides Tailwind's default container behavior to:
-   * - Auto-center content (mx-auto)
-   * - Add responsive horizontal padding
-   * - Set max-width for large screens
-   *
-   * Usage: <div className="container">...</div>
-   *
-   * For custom widths, use max-w-* utilities directly:
-   * <div className="max-w-6xl mx-auto px-4">...</div>
-   */
+@layer utilities {
   .container {
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 1rem; /* 16px - mobile padding */
-    padding-right: 1rem;
-  }
-
-  .flex {
-    min-height: 0;
-    min-width: 0;
-  }
-
-  @media (min-width: 640px) {
-    .container {
-      padding-left: 1.5rem; /* 24px - tablet padding */
-      padding-right: 1.5rem;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .container {
-      padding-left: 2rem; /* 32px - desktop padding */
-      padding-right: 2rem;
-      max-width: 1280px; /* Standard content width */
-    }
+    @apply mx-auto px-4 sm:px-6 lg:px-8;
   }
 }

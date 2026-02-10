@@ -61,9 +61,11 @@ export default function Home() {
         <div className="container">
           <div className="max-w-4xl mx-auto text-center">
             <div className="mb-8 flex justify-center">
-              <div className="w-24 h-24 rounded-full bg-gradient-to-br from-primary via-secondary to-accent flex items-center justify-center shadow-2xl">
-                <span className="text-white font-bold text-4xl">LE</span>
-              </div>
+              <img 
+                src="/lemc-logo.png" 
+                alt="LEMC Coalition Logo" 
+                className="w-32 h-32 object-contain drop-shadow-2xl"
+              />
             </div>
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
               {t('home.title')}
@@ -74,25 +76,21 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               {isAuthenticated ? (
                 <>
-                  <Button size="lg" asChild className="text-lg">
-                    <Link href="/profile">
-                      <a className="flex items-center gap-2">
-                        {t('nav.profile')}
-                        <ArrowRight className="h-5 w-5" />
-                      </a>
-                    </Link>
-                  </Button>
-                  <Button size="lg" variant="outline" asChild className="text-lg">
-                    <Link href="/passport">
-                      <a className="flex items-center gap-2">
-                        <MapPin className="h-5 w-5" />
-                        {t('nav.passport')}
-                      </a>
-                    </Link>
-                  </Button>
+                  <Link href="/profile">
+                    <Button size="lg" className="text-lg flex items-center gap-2">
+                      {t('nav.profile')}
+                      <ArrowRight className="h-5 w-5" />
+                    </Button>
+                  </Link>
+                  <Link href="/passport">
+                    <Button size="lg" variant="outline" className="text-lg flex items-center gap-2">
+                      <MapPin className="h-5 w-5" />
+                      {t('nav.passport')}
+                    </Button>
+                  </Link>
                 </>
               ) : (
-                <Button size="lg" asChild className="text-lg">
+                <Button size="lg" className="text-lg" asChild>
                   <a href={getLoginUrl()} className="flex items-center gap-2">
                     {t('nav.login')}
                     <ArrowRight className="h-5 w-5" />
@@ -209,8 +207,8 @@ export default function Home() {
                 Be part of a global community of law enforcement riders united by passion, purpose, and the open road.
               </p>
               {!isAuthenticated && (
-                <Button size="lg" asChild className="text-lg">
-                  <a href={getLoginUrl()} className="flex items-center gap-2 mx-auto w-fit">
+                <Button size="lg" className="text-lg mx-auto" asChild>
+                  <a href={getLoginUrl()} className="flex items-center gap-2">
                     {t('nav.login')}
                     <ArrowRight className="h-5 w-5" />
                   </a>
