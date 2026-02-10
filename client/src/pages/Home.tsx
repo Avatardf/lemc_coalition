@@ -112,35 +112,13 @@ export default function Home() {
             </div>
             
             {/* Country Flags */}
-            <div className="mt-12 flex flex-wrap justify-center gap-4 items-center">
-              {[
-                { code: 'BRA', name: 'Brazil', x: 0 },
-                { code: 'CHL', name: 'Chile', x: -160 },
-                { code: 'DEU', name: 'Germany', x: -320 },
-                { code: 'BEL', name: 'Belgium', x: -480 },
-                { code: 'USA', name: 'United States', x: -640 },
-                { code: 'ITA', name: 'Italy', x: -800 },
-                { code: 'SVK', name: 'Slovakia', x: -960 },
-                { code: 'PRI', name: 'Puerto Rico', x: -1120 },
-                { code: 'ARG', name: 'Argentina', x: -1280 },
-                { code: 'PRT', name: 'Portugal', x: -1440 },
-              ].map((country) => (
-                <div 
-                  key={country.code}
-                  className="flag-sprite"
-                  style={{
-                    width: '160px',
-                    height: '120px',
-                    backgroundImage: 'url(/flags-sprite.png)',
-                    backgroundPosition: `${country.x}px 0`,
-                    backgroundSize: '1600px 120px',
-                    backgroundRepeat: 'no-repeat',
-                    filter: 'drop-shadow(0 4px 6px rgba(0,0,0,0.3))',
-                  }}
-                  title={country.name}
-                  aria-label={country.name}
-                />
-              ))}
+            <div className="mt-12">
+              <img 
+                src="/flags.png" 
+                alt="Member Countries Flags" 
+                className="mx-auto"
+                style={{ maxWidth: '100%', height: 'auto' }}
+              />
             </div>
           </div>
         </div>
@@ -250,42 +228,14 @@ export default function Home() {
             </p>
           </div>
           
-          {/* Badges Sprite */}
-          <div className="flex flex-wrap justify-center gap-6 items-center max-w-6xl mx-auto">
-            {[
-              { name: 'Blue Knights', x: 0 },
-              { name: 'Law Enforcement MC International', x: -160 },
-              { name: 'Lord\'s Guardians', x: -320 },
-              { name: 'Despatch Riders', x: -480 },
-              { name: 'LEMC Coalition', x: -640 },
-              { name: 'Legion Germany', x: -800 },
-              { name: 'Fraternidade Brasil', x: -960 },
-              { name: 'Blocks & Bikes', x: -1120 },
-              { name: 'Ejecutores', x: -1280 },
-            ].map((club, index) => (
-              <div 
-                key={index}
-                className="badge-sprite"
-                style={{
-                  width: '160px',
-                  height: '160px',
-                  backgroundImage: 'url(/badges-sprite.png)',
-                  backgroundPosition: `${club.x}px 0`,
-                  backgroundSize: '1440px 160px',
-                  backgroundRepeat: 'no-repeat',
-                  filter: 'drop-shadow(0 8px 16px rgba(0,0,0,0.4))',
-                  transition: 'transform 0.3s ease',
-                }}
-                title={club.name}
-                aria-label={club.name}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'scale(1.1)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'scale(1)';
-                }}
-              />
-            ))}
+          {/* Badges */}
+          <div className="flex justify-center">
+            <img 
+              src="/badges.png" 
+              alt="Member Motorcycle Clubs Badges" 
+              className="mx-auto"
+              style={{ maxWidth: '100%', height: 'auto' }}
+            />
           </div>
         </div>
       </section>

@@ -116,3 +116,11 @@
 - [x] Adicionar seção com badges dos moto clubes no final da página
 - [x] Remover card "Join the Brotherhood" (não aceitando novos clubes)
 - [x] Testar proteção contra download de imagens completas
+
+## Correção de Bandeiras e Badges
+- [x] Remover implementação de CSS Sprites
+- [x] Usar imagens completas (bandeirascoalizão.png e BASEICLEMC.png)
+- [x] Ajustar tamanho das bandeiras conforme referência
+- [x] Ajustar tamanho e alinhamento dos badges conforme referência
+- [x] Garantir que imagens não fiquem recortadas
+- [x] Testar exibição em diferentes resoluções
