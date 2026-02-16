@@ -62,7 +62,7 @@ export default function Home() {
         {/* Background Image with Overlay */}
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: 'url(/road-background.jpg)' }}
+          style={{ backgroundImage: 'url(https://files.manuscdn.com/user_upload_by_module/session_file/310519663244944167/nqssBQvTWvyHoGTe.jpg)' }}
         />
         <div className="absolute inset-0 bg-black/75" />
         
@@ -71,7 +71,7 @@ export default function Home() {
           <div className="max-w-4xl mx-auto text-center">
             <div className="mb-8 flex justify-center">
               <img 
-                src="/lemc-logo.png" 
+                src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663244944167/SsQiOeHWtgpOnUGf.png" 
                 alt="LEMC Coalition Logo" 
                 className="w-32 h-32 object-contain drop-shadow-2xl"
               />
@@ -114,7 +114,7 @@ export default function Home() {
             {/* Country Flags */}
             <div className="mt-12">
               <img 
-                src="/flags.png" 
+                src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663244944167/urqjbUfsjUwyTiLw.png" 
                 alt="Member Countries Flags" 
                 className="mx-auto"
                 style={{ maxWidth: '100%', height: 'auto' }}
@@ -231,7 +231,7 @@ export default function Home() {
           {/* Badges */}
           <div className="flex justify-center">
             <img 
-              src="/badges.png" 
+              src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663244944167/OshghXvarWlYFfRf.png" 
               alt="Member Motorcycle Clubs Badges" 
               className="mx-auto"
               style={{ maxWidth: '100%', height: 'auto' }}
