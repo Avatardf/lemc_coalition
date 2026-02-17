@@ -49,18 +49,31 @@ class OAuthService {
   ): Promise<ExchangeTokenResponse> {
     const payload: ExchangeTokenRequest = {
       clientId: ENV.appId,
-      clientSecret: ENV.clientSecret,
       grantType: "authorization_code",
       code,
       redirectUri: this.decodeState(state),
+      clientSecret: ENV.clientSecret,
     };
 
-    const { data } = await this.client.post<ExchangeTokenResponse>(
-      EXCHANGE_TOKEN_PATH,
-      payload
-    );
+    console.log("[OAuth] Exchanging code for token");
+    console.log("[OAuth] Payload:", JSON.stringify(payload, null, 2));
+    console.log("[OAuth] Server URL:", this.client.defaults.baseURL);
+    console.log("[OAuth] Endpoint:", EXCHANGE_TOKEN_PATH);
 
-    return data;
+    try {
+      const { data } = await this.client.post<ExchangeTokenResponse>(
+        EXCHANGE_TOKEN_PATH,
+        payload
+      );
+      console.log("[OAuth] Token exchange successful");
+      return data;
+    } catch (error: any) {
+      console.error("[OAuth] Token exchange failed");
+      console.error("[OAuth] Error status:", error.response?.status);
+      console.error("[OAuth] Error data:", JSON.stringify(error.response?.data, null, 2));
+      console.error("[OAuth] Error message:", error.message);
+      throw error;
+    }
   }
 
   async getUserInfoByToken(
