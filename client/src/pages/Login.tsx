@@ -80,7 +80,7 @@ export default function Login() {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-[url('/road-background.jpg')] bg-cover bg-center">
+        <div className="min-h-screen flex items-center justify-center bg-[url('https://files.manuscdn.com/user_upload_by_module/session_file/310519663244944167/nqssBQvTWvyHoGTe.jpg')] bg-cover bg-center">
             <div className="absolute inset-0 bg-black/80" />
 
             <Card className="z-10 w-full max-w-md bg-slate-900/90 border-slate-800 text-slate-100 backdrop-blur-sm">
