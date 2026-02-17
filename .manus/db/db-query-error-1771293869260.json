@@ -1,0 +1,8 @@
+{
+  "query": "INSERT INTO users (\n  openId, \n  email, \n  name, \n  role, \n  password, \n  membershipStatus, \n  createdAt, \n  updatedAt, \n  lastSignedIn\n) VALUES (\n  'admin-marcello-barros',\n  'marcello.barros.rj@gmail.com',\n  'Marcello Barros',\n  'admin',\n  '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcg7b3XeKeUxWdeS86E36P4/KFm',\n  'approved',\n  NOW(),\n  NOW(),\n  NOW()\n) ON DUPLICATE KEY UPDATE \n  role = 'admin',\n  membershipStatus = 'approved';",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user MfhuvFoGFvTuYxp.e916a139683e --database jLeVM3zRk2aegVkRXyRdgp --execute INSERT INTO users (\n  openId, \n  email, \n  name, \n  role, \n  password, \n  membershipStatus, \n  createdAt, \n  updatedAt, \n  lastSignedIn\n) VALUES (\n  'admin-marcello-barros',\n  'marcello.barros.rj@gmail.com',\n  'Marcello Barros',\n  'admin',\n  '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcg7b3XeKeUxWdeS86E36P4/KFm',\n  'approved',\n  NOW(),\n  NOW(),\n  NOW()\n) ON DUPLICATE KEY UPDATE \n  role = 'admin',\n  membershipStatus = 'approved';",
+  "returncode": 1,
+  "logs": [
+    "ERROR 1054 (42S22) at line 1: Unknown column 'password' in 'field list'"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "query": "INSERT INTO users (\n  openId, \n  email, \n  name, \n  role, \n  membershipStatus, \n  createdAt, \n  updatedAt, \n  lastSignedIn\n) VALUES (\n  'admin-marcello-barros',\n  'marcello.barros.rj@gmail.com',\n  'Marcello Barros',\n  'admin',\n  'approved',\n  NOW(),\n  NOW(),\n  NOW()\n);",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user MfhuvFoGFvTuYxp.e916a139683e --database jLeVM3zRk2aegVkRXyRdgp --execute INSERT INTO users (\n  openId, \n  email, \n  name, \n  role, \n  membershipStatus, \n  createdAt, \n  updatedAt, \n  lastSignedIn\n) VALUES (\n  'admin-marcello-barros',\n  'marcello.barros.rj@gmail.com',\n  'Marcello Barros',\n  'admin',\n  'approved',\n  NOW(),\n  NOW(),\n  NOW()\n);",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 764
+}
