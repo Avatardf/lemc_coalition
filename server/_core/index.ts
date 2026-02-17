@@ -51,14 +51,25 @@ async function startServer() {
   }
 
   const preferredPort = parseInt(process.env.PORT || "3000");
-  const port = await findAvailablePort(preferredPort);
+  const isProduction = process.env.NODE_ENV === "production";
 
-  if (port !== preferredPort) {
-    console.log(`Port ${preferredPort} is busy, using port ${port} instead`);
+  let port: number;
+  if (isProduction) {
+    port = preferredPort;
+    console.log(`[Production] Strictly using assigned PORT: ${port}`);
+  } else {
+    console.log(`Finding available port starting from ${preferredPort}...`);
+    port = await findAvailablePort(preferredPort);
+    if (port !== preferredPort) {
+      console.log(`Port ${preferredPort} is busy, using port ${port} instead`);
+    }
   }
 
-  server.listen(port, () => {
-    console.log(`Server running on http://localhost:${port}/`);
+  // Bind to 0.0.0.0 for external access (required for deployments like Railway/Docker)
+  const host = '0.0.0.0';
+  server.listen(port, host, () => {
+    console.log(`Server running on http://${host}:${port}/`);
+    console.log(`Production Mode: ${isProduction}`);
   });
 }
 

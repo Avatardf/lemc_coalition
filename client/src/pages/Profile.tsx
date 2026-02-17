@@ -1,3 +1,4 @@
+import { Link } from 'wouter';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '@/_core/hooks/useAuth';
 import { trpc } from '@/lib/trpc';
@@ -12,25 +13,31 @@ import { useState, useRef } from 'react';
 import { Upload, Loader2 } from 'lucide-react';
 import { getLoginUrl } from '@/const';
 import { ImageCropDialog } from '@/components/ImageCropDialog';
+import { COUNTRIES, getCountryFlagUrl } from '@shared/countries';
+import { Checkbox } from '@/components/ui/checkbox';
 
 export default function Profile() {
   const { t } = useTranslation();
   const { user, isAuthenticated, loading } = useAuth();
   const utils = trpc.useUtils();
-  
+
   const [formData, setFormData] = useState({
     fullName: user?.fullName || '',
     roadName: user?.roadName || '',
     documentNumber: user?.documentNumber || '',
     motoClubId: user?.motoClubId || undefined,
+    phoneNumber: user?.phoneNumber || '',
+    phoneIsShared: user?.phoneIsShared || false,
+    country: user?.country || '',
+    birthDate: (user as any)?.birthDate || '',
   });
-  
+
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [cropDialogOpen, setCropDialogOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string>('');
-  
+
   const { data: motoClubs } = trpc.motoClubs.list.useQuery();
-  
+
   const updateProfile = trpc.profile.update.useMutation({
     onSuccess: () => {
       toast.success(t('common.success'));
@@ -40,7 +47,7 @@ export default function Profile() {
       toast.error(error.message);
     },
   });
-  
+
   const uploadPhoto = trpc.profile.uploadPhoto.useMutation({
     onSuccess: () => {
       toast.success(t('profile.uploadPhoto') + ' - ' + t('common.success'));
@@ -53,7 +60,10 @@ export default function Profile() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    updateProfile.mutate(formData);
+    updateProfile.mutate({
+      ...formData,
+      birthDate: formData.birthDate ? String(formData.birthDate) : undefined
+    });
   };
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -121,9 +131,15 @@ export default function Profile() {
   return (
     <div className="min-h-screen bg-muted/30 py-8">
       <div className="container max-w-4xl">
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-foreground mb-2">{t('profile.title')}</h1>
-          <p className="text-muted-foreground">{t('profile.edit')}</p>
+        <h1 className="text-4xl font-bold text-foreground mb-2">{t('profile.title')}</h1>
+        <p className="text-muted-foreground">{t('profile.edit')}</p>
+
+        <div className="mb-6">
+          <Link href="/dashboard">
+            <Button className="bg-amber-600 hover:bg-amber-700 text-white font-bold">
+              ← Back to Dashboard
+            </Button>
+          </Link>
         </div>
 
         <div className="grid gap-6 md:grid-cols-3">
@@ -139,7 +155,7 @@ export default function Profile() {
                   {(user?.fullName || user?.name || 'U')[0].toUpperCase()}
                 </AvatarFallback>
               </Avatar>
-              
+
               <input
                 ref={fileInputRef}
                 type="file"
@@ -147,7 +163,7 @@ export default function Profile() {
                 className="hidden"
                 onChange={handleFileChange}
               />
-              
+
               <Button
                 variant="outline"
                 size="sm"
@@ -210,6 +226,65 @@ export default function Profile() {
                   />
                 </div>
 
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="country">Country</Label>
+                    <Select
+                      value={formData.country}
+                      onValueChange={(value) => setFormData({ ...formData, country: value })}
+                    >
+                      <SelectTrigger id="country">
+                        <SelectValue placeholder="Select country" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {COUNTRIES.map((c: any) => (
+                          <SelectItem key={c.code} value={c.code}>
+                            <div className="flex items-center gap-2">
+                              {getCountryFlagUrl(c.code) && (
+                                <img
+                                  src={getCountryFlagUrl(c.code)!}
+                                  alt={c.name}
+                                  className="w-4 h-auto rounded-sm shadow-sm"
+                                />
+                              )}
+                              <span>{c.name} ({c.code})</span>
+                            </div>
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="phoneNumber">Phone Number</Label>
+                    <Input
+                      id="phoneNumber"
+                      value={formData.phoneNumber || ''}
+                      onChange={(e) => setFormData({ ...formData, phoneNumber: e.target.value })}
+                      placeholder="+1 234 567 8900"
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="birthDate">Date of Birth</Label>
+                  <Input
+                    id="birthDate"
+                    type="date"
+                    value={formData.birthDate ? new Date(formData.birthDate as string).toISOString().split('T')[0] : ''}
+                    onChange={(e) => setFormData({ ...formData, birthDate: e.target.value })}
+                  />
+                </div>
+
+                <div className="flex items-center space-x-2 pb-2">
+                  <Checkbox
+                    id="phoneIsShared"
+                    checked={formData.phoneIsShared}
+                    onCheckedChange={(checked) => setFormData({ ...formData, phoneIsShared: checked as boolean })}
+                  />
+                  <Label htmlFor="phoneIsShared" className="font-normal cursor-pointer">
+                    Authorize sharing with coalition members
+                  </Label>
+                </div>
                 <div className="space-y-2">
                   <Label htmlFor="motoClub">{t('profile.motoClub')}</Label>
                   <Select
@@ -229,8 +304,8 @@ export default function Profile() {
                   </Select>
                 </div>
 
-                <Button 
-                  type="submit" 
+                <Button
+                  type="submit"
                   className="w-full"
                   disabled={updateProfile.isPending}
                 >
@@ -242,7 +317,7 @@ export default function Profile() {
           </Card>
         </div>
       </div>
-      
+
       {/* Image Crop Dialog */}
       <ImageCropDialog
         open={cropDialogOpen}
@@ -252,6 +327,6 @@ export default function Profile() {
         aspectRatio={1}
         cropShape="round"
       />
-    </div>
+    </div >
   );
 }

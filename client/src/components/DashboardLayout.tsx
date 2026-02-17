@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/sidebar";
 import { getLoginUrl } from "@/const";
 import { useIsMobile } from "@/hooks/useMobile";
-import { LayoutDashboard, LogOut, PanelLeft, Users } from "lucide-react";
+import { LayoutDashboard, LogOut, PanelLeft, Users, Shield } from "lucide-react";
 import { CSSProperties, useEffect, useRef, useState } from "react";
 import { useLocation } from "wouter";
 import { DashboardLayoutSkeleton } from './DashboardLayoutSkeleton';
@@ -112,8 +112,22 @@ function DashboardLayoutContent({
   const isCollapsed = state === "collapsed";
   const [isResizing, setIsResizing] = useState(false);
   const sidebarRef = useRef<HTMLDivElement>(null);
-  const activeMenuItem = menuItems.find(item => item.path === location);
   const isMobile = useIsMobile();
+
+  const menuItems = [
+    { icon: LayoutDashboard, label: "Início", path: "/" },
+    { icon: PanelLeft, label: "Dashboard", path: "/dashboard" },
+  ];
+
+  if (user?.motoClubId) {
+    menuItems.push({ icon: Shield, label: "Meu Clube", path: `/club/${user.motoClubId}` });
+  }
+
+  if (user?.role === 'admin' || user?.role === 'club_admin' || user?.role === 'club_officer') {
+    menuItems.push({ icon: Users, label: "Admin", path: "/admin" });
+  }
+
+  const activeMenuItem = menuItems.find(item => item.path === location);
 
   useEffect(() => {
     if (isCollapsed) {

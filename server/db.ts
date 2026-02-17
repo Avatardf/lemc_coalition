@@ -1,12 +1,12 @@
-import { eq, and, desc } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { 
-  InsertUser, 
-  users, 
-  motoClubs, 
-  chapters, 
-  motorcycles, 
-  passportCheckIns, 
+import { eq, desc, isNull, isNotNull, and, inArray, or } from "drizzle-orm";
+import {
+  InsertUser,
+  users,
+  motoClubs,
+  chapters,
+  motorcycles,
+  passportCheckIns,
   membershipRequests,
   MotoClub,
   Chapter,
@@ -146,6 +146,20 @@ export async function getMotoClubById(id: number): Promise<MotoClub | undefined>
 
   const result = await db.select().from(motoClubs).where(eq(motoClubs.id, id)).limit(1);
   return result.length > 0 ? result[0] : undefined;
+}
+
+export async function getMembersByClubId(clubId: number): Promise<User[]> {
+  const db = await getDb();
+  if (!db) return [];
+
+  return db.select().from(users).where(and(
+    eq(users.motoClubId, clubId),
+    or(
+      eq(users.membershipStatus, 'approved'),
+      eq(users.role, 'club_admin'),
+      eq(users.role, 'admin')
+    )
+  ));
 }
 
 export async function createMotoClub(data: typeof motoClubs.$inferInsert): Promise<MotoClub | undefined> {

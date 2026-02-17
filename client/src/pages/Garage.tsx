@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import { Link } from 'wouter';
 import { useAuth } from '@/_core/hooks/useAuth';
 import { trpc } from '@/lib/trpc';
 import { Button } from '@/components/ui/button';
@@ -8,15 +9,17 @@ import { Label } from '@/components/ui/label';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { toast } from 'sonner';
 import { useState, useRef } from 'react';
-import { Plus, Loader2, Trash2, Upload, Bike } from 'lucide-react';
+import { Plus, Loader2, Trash2, Upload, Bike, Pencil } from 'lucide-react';
 import { getLoginUrl } from '@/const';
 import { ImageCropDialog } from '@/components/ImageCropDialog';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { MOTORCYCLE_BRANDS } from "@shared/const";
 
 export default function Garage() {
   const { t } = useTranslation();
   const { isAuthenticated, loading } = useAuth();
   const utils = trpc.useUtils();
-  
+
   const [dialogOpen, setDialogOpen] = useState(false);
   const [formData, setFormData] = useState({
     licensePlate: '',
@@ -28,11 +31,11 @@ export default function Garage() {
   const [cropDialogOpen, setCropDialogOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string>('');
   const [currentMotorcycleId, setCurrentMotorcycleId] = useState<number | null>(null);
-  
+
   const { data: motorcycles, isLoading } = trpc.garage.list.useQuery(undefined, {
     enabled: isAuthenticated,
   });
-  
+
   const addMotorcycle = trpc.garage.add.useMutation({
     onSuccess: () => {
       toast.success(t('common.success'));
@@ -44,7 +47,7 @@ export default function Garage() {
       toast.error(error.message);
     },
   });
-  
+
   const deleteMotorcycle = trpc.garage.delete.useMutation({
     onSuccess: () => {
       toast.success(t('common.success'));
@@ -54,7 +57,7 @@ export default function Garage() {
       toast.error(error.message);
     },
   });
-  
+
   const uploadPhoto = trpc.garage.uploadPhoto.useMutation({
     onSuccess: () => {
       toast.success(t('garage.uploadPhoto') + ' - ' + t('common.success'));
@@ -67,9 +70,40 @@ export default function Garage() {
     },
   });
 
+
+  const updateMotorcycle = trpc.garage.update.useMutation({
+    onSuccess: () => {
+      toast.success(t('common.success'));
+      utils.garage.list.invalidate();
+      setDialogOpen(false);
+      setFormData({ licensePlate: '', brand: '', model: '' });
+      setCurrentMotorcycleId(null);
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    addMotorcycle.mutate(formData);
+    if (currentMotorcycleId) {
+      updateMotorcycle.mutate({
+        id: currentMotorcycleId,
+        ...formData
+      });
+    } else {
+      addMotorcycle.mutate(formData);
+    }
+  };
+
+  const handleEdit = (motorcycle: any) => {
+    setFormData({
+      licensePlate: motorcycle.licensePlate,
+      brand: motorcycle.brand,
+      model: motorcycle.model,
+    });
+    setCurrentMotorcycleId(motorcycle.id);
+    setDialogOpen(true);
   };
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>, motorcycleId: number) => {
@@ -92,7 +126,7 @@ export default function Garage() {
 
   const handleCropComplete = async (croppedBlob: Blob) => {
     if (!currentMotorcycleId) return;
-    
+
     setUploadingPhotoFor(currentMotorcycleId);
     const reader = new FileReader();
     reader.onload = () => {
@@ -138,6 +172,14 @@ export default function Garage() {
   return (
     <div className="min-h-screen bg-muted/30 py-8">
       <div className="container max-w-6xl">
+        <div className="mb-6">
+          <Link href="/dashboard">
+            <Button className="bg-amber-600 hover:bg-amber-700 text-white font-bold">
+              ← Back to Dashboard
+            </Button>
+          </Link>
+        </div>
+
         <div className="flex items-center justify-between mb-8">
           <div>
             <h1 className="text-4xl font-bold text-foreground mb-2">{t('garage.title')}</h1>
@@ -145,8 +187,14 @@ export default function Garage() {
               {motorcycles?.length || 0} / 2 {t('garage.title').toLowerCase()}
             </p>
           </div>
-          
-          <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+
+          <Dialog open={dialogOpen} onOpenChange={(open) => {
+            setDialogOpen(open);
+            if (!open) {
+              setFormData({ licensePlate: '', brand: '', model: '' });
+              setCurrentMotorcycleId(null);
+            }
+          }}>
             <DialogTrigger asChild>
               <Button disabled={!canAddMore}>
                 <Plus className="h-4 w-4 mr-2" />
@@ -155,9 +203,9 @@ export default function Garage() {
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>{t('garage.addMotorcycle')}</DialogTitle>
+                <DialogTitle>{currentMotorcycleId ? 'Edit Motorcycle' : t('garage.addMotorcycle')}</DialogTitle>
                 <DialogDescription>
-                  {canAddMore ? 'Add your motorcycle details' : t('garage.maxReached')}
+                  {currentMotorcycleId ? 'Update your motorcycle details' : (canAddMore ? 'Add your motorcycle details' : t('garage.maxReached'))}
                 </DialogDescription>
               </DialogHeader>
               <form onSubmit={handleSubmit}>
@@ -174,13 +222,21 @@ export default function Garage() {
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="brand">{t('garage.brand')}</Label>
-                    <Input
-                      id="brand"
+                    <Select
                       value={formData.brand}
-                      onChange={(e) => setFormData({ ...formData, brand: e.target.value })}
-                      placeholder="Harley-Davidson"
-                      required
-                    />
+                      onValueChange={(value) => setFormData({ ...formData, brand: value })}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select brand" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {MOTORCYCLE_BRANDS.map((brand) => (
+                          <SelectItem key={brand} value={brand}>
+                            {brand}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="model">{t('garage.model')}</Label>
@@ -194,8 +250,8 @@ export default function Garage() {
                   </div>
                 </div>
                 <DialogFooter>
-                  <Button type="submit" disabled={addMotorcycle.isPending}>
-                    {addMotorcycle.isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                  <Button type="submit" disabled={addMotorcycle.isPending || updateMotorcycle.isPending}>
+                    {(addMotorcycle.isPending || updateMotorcycle.isPending) && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                     {t('garage.save')}
                   </Button>
                 </DialogFooter>
@@ -221,8 +277,8 @@ export default function Garage() {
               <Card key={motorcycle.id} className="overflow-hidden">
                 <div className="aspect-video bg-muted relative">
                   {motorcycle.photoUrl ? (
-                    <img 
-                      src={motorcycle.photoUrl} 
+                    <img
+                      src={motorcycle.photoUrl}
                       alt={`${motorcycle.brand} ${motorcycle.model}`}
                       className="w-full h-full object-cover"
                     />
@@ -231,7 +287,7 @@ export default function Garage() {
                       <Bike className="h-20 w-20 text-muted-foreground" />
                     </div>
                   )}
-                  
+
                   <input
                     ref={fileInputRef}
                     type="file"
@@ -239,7 +295,7 @@ export default function Garage() {
                     className="hidden"
                     onChange={(e) => handleFileChange(e, motorcycle.id)}
                   />
-                  
+
                   <Button
                     variant="secondary"
                     size="sm"
@@ -254,13 +310,21 @@ export default function Garage() {
                     )}
                   </Button>
                 </div>
-                
+
                 <CardHeader>
                   <CardTitle>{motorcycle.brand} {motorcycle.model}</CardTitle>
                   <CardDescription>{motorcycle.licensePlate}</CardDescription>
                 </CardHeader>
-                
-                <CardFooter>
+
+                <CardFooter className="flex justify-between">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => handleEdit(motorcycle)}
+                  >
+                    <Pencil className="h-4 w-4 mr-2" />
+                    Edit
+                  </Button>
                   <Button
                     variant="destructive"
                     size="sm"
@@ -280,7 +344,7 @@ export default function Garage() {
           </div>
         )}
       </div>
-      
+
       {/* Image Crop Dialog */}
       <ImageCropDialog
         open={cropDialogOpen}
