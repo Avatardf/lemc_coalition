@@ -47,7 +47,7 @@ export function Navigation() {
           <Link href="/">
             <div className="flex items-center gap-3 hover:opacity-80 transition-opacity cursor-pointer">
               <img 
-                src="/lemc-logo.png" 
+                src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663244944167/SsQiOeHWtgpOnUGf.png" 
                 alt="LEMC Coalition" 
                 className="w-12 h-12 object-contain"
               />
