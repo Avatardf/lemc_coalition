@@ -1,0 +1,82 @@
+{
+  "query": "SELECT COLUMN_NAME, COLUMN_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'users' ORDER BY ORDINAL_POSITION;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user MfhuvFoGFvTuYxp.e916a139683e --database jLeVM3zRk2aegVkRXyRdgp --execute SELECT COLUMN_NAME, COLUMN_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'users' ORDER BY ORDINAL_POSITION;",
+  "rows": [
+    {
+      "COLUMN_NAME": "id",
+      "COLUMN_TYPE": "int(11)"
+    },
+    {
+      "COLUMN_NAME": "openId",
+      "COLUMN_TYPE": "varchar(64)"
+    },
+    {
+      "COLUMN_NAME": "name",
+      "COLUMN_TYPE": "text"
+    },
+    {
+      "COLUMN_NAME": "email",
+      "COLUMN_TYPE": "varchar(320)"
+    },
+    {
+      "COLUMN_NAME": "loginMethod",
+      "COLUMN_TYPE": "varchar(64)"
+    },
+    {
+      "COLUMN_NAME": "role",
+      "COLUMN_TYPE": "enum('user','club_admin','admin')"
+    },
+    {
+      "COLUMN_NAME": "createdAt",
+      "COLUMN_TYPE": "timestamp"
+    },
+    {
+      "COLUMN_NAME": "updatedAt",
+      "COLUMN_TYPE": "timestamp"
+    },
+    {
+      "COLUMN_NAME": "lastSignedIn",
+      "COLUMN_TYPE": "timestamp"
+    },
+    {
+      "COLUMN_NAME": "profilePhotoUrl",
+      "COLUMN_TYPE": "text"
+    },
+    {
+      "COLUMN_NAME": "fullName",
+      "COLUMN_TYPE": "varchar(255)"
+    },
+    {
+      "COLUMN_NAME": "roadName",
+      "COLUMN_TYPE": "varchar(255)"
+    },
+    {
+      "COLUMN_NAME": "documentNumber",
+      "COLUMN_TYPE": "varchar(100)"
+    },
+    {
+      "COLUMN_NAME": "motoClubId",
+      "COLUMN_TYPE": "int(11)"
+    },
+    {
+      "COLUMN_NAME": "membershipStatus",
+      "COLUMN_TYPE": "enum('pending','approved','rejected')"
+    },
+    {
+      "COLUMN_NAME": "termsAcceptedAt",
+      "COLUMN_TYPE": "timestamp"
+    },
+    {
+      "COLUMN_NAME": "termsAcceptedIp",
+      "COLUMN_TYPE": "varchar(45)"
+    },
+    {
+      "COLUMN_NAME": "termsVersion",
+      "COLUMN_TYPE": "varchar(20)"
+    }
+  ],
+  "messages": [],
+  "stdout": "COLUMN_NAME\tCOLUMN_TYPE\nid\tint(11)\nopenId\tvarchar(64)\nname\ttext\nemail\tvarchar(320)\nloginMethod\tvarchar(64)\nrole\tenum('user','club_admin','admin')\ncreatedAt\ttimestamp\nupdatedAt\ttimestamp\nlastSignedIn\ttimestamp\nprofilePhotoUrl\ttext\nfullName\tvarchar(255)\nroadName\tvarchar(255)\ndocumentNumber\tvarchar(100)\nmotoClubId\tint(11)\nmembershipStatus\tenum('pending','approved','rejected')\ntermsAcceptedAt\ttimestamp\ntermsAcceptedIp\tvarchar(45)\ntermsVersion\tvarchar(20)\n",
+  "stderr": "",
+  "execution_time_ms": 58
+}

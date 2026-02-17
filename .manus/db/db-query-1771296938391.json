@@ -1,0 +1,9 @@
+{
+  "query": "ALTER TABLE users ADD COLUMN password TEXT NULL, ADD COLUMN mustChangePassword BOOLEAN DEFAULT FALSE NOT NULL;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user MfhuvFoGFvTuYxp.e916a139683e --database jLeVM3zRk2aegVkRXyRdgp --execute ALTER TABLE users ADD COLUMN password TEXT NULL, ADD COLUMN mustChangePassword BOOLEAN DEFAULT FALSE NOT NULL;",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 709
+}
