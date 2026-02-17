@@ -133,3 +133,9 @@
 - [x] Adicionar preview da imagem recortada antes do upload
 - [x] Garantir que apenas a área recortada seja enviada ao servidor
 - [x] Testar crop em diferentes tamanhos e formatos de imagem
+
+## Correção de Autenticação OAuth
+- [x] Remover botão "Google Workspace" temporariamente da página de login
+- [x] Manter apenas autenticação por email/senha
+- [ ] Aguardar fornecimento do OAUTH_CLIENT_SECRET pelo suporte Manus
+- [ ] Reativar OAuth quando client secret estiver disponível

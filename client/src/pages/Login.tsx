@@ -135,21 +135,7 @@ export default function Login() {
                                 </Button>
                             </form>
 
-                            <div className="relative">
-                                <div className="absolute inset-0 flex items-center">
-                                    <Separator className="w-full bg-slate-800" />
-                                </div>
-                                <div className="relative flex justify-center text-xs uppercase">
-                                    <span className="bg-slate-900 px-2 text-slate-500">Ou continue com</span>
-                                </div>
-                            </div>
 
-                            <Button variant="outline" className="w-full border-slate-700 hover:bg-slate-800 hover:text-white" asChild>
-                                <a href={getLoginUrl()} className="flex items-center justify-center gap-2">
-                                    <Chrome className="h-5 w-5" />
-                                    Google Workspace
-                                </a>
-                            </Button>
                         </div>
                     ) : (
                         <form onSubmit={handleChangePassword} className="space-y-4 animate-in fade-in slide-in-from-right-4">
