@@ -49,6 +49,7 @@ class OAuthService {
   ): Promise<ExchangeTokenResponse> {
     const payload: ExchangeTokenRequest = {
       clientId: ENV.appId,
+      clientSecret: ENV.clientSecret,
       grantType: "authorization_code",
       code,
       redirectUri: this.decodeState(state),
