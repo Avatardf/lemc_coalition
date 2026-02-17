@@ -1,8 +1,8 @@
 # Base Image
-FROM node:20-slim AS base
+FROM node:22-slim AS base
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
-RUN corepack enable
+RUN npm install -g pnpm@10.4.1
 
 # Working Directory
 WORKDIR /app
@@ -19,7 +19,7 @@ COPY . .
 RUN pnpm run build
 
 # Final Stage
-FROM node:20-slim
+FROM node:22-slim
 WORKDIR /app
 
 # Copy only what's needed for production
