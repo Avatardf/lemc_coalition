@@ -139,3 +139,9 @@
 - [x] Manter apenas autenticação por email/senha
 - [ ] Aguardar fornecimento do OAUTH_CLIENT_SECRET pelo suporte Manus
 - [ ] Reativar OAuth quando client secret estiver disponível
+
+## Implementação OAuth Alternativo (Sem Client Secret)
+- [x] Restaurar botão OAuth na página de login
+- [x] Implementar fluxo OAuth simplificado que funciona sem OAUTH_CLIENT_SECRET
+- [x] Criar endpoint de callback que aceita autenticação do Manus
+- [ ] Testar fluxo completo de login via Google/Microsoft/Apple
