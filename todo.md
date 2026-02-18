@@ -145,3 +145,9 @@
 - [x] Implementar fluxo OAuth simplificado que funciona sem OAUTH_CLIENT_SECRET
 - [x] Criar endpoint de callback que aceita autenticação do Manus
 - [ ] Testar fluxo completo de login via Google/Microsoft/Apple
+
+## Remoção Definitiva do OAuth (Aguardando Client Secret)
+- [x] Remover botão "Google Workspace" da página de login
+- [x] Manter apenas autenticação por email/senha
+- [ ] Aguardar resposta do suporte Manus com OAUTH_CLIENT_SECRET
+- [ ] Reativar OAuth quando client secret for fornecido
